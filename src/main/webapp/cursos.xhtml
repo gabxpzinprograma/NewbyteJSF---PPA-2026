@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<h:head>
+    <title>NewByte - Cursos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="./resources/ifba/images/logo-removebg-preview.png" type="image/x-icon" />
+    <h:outputStylesheet library="ifba" name="styles/cursos.css" />
+    <h:outputStylesheet library="ifba" name="styles/cursosemandamento.css" />
+    <h:outputScript library="ifba" name="javascripts/app.js" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</h:head>
+
+<h:body>
+    <div class="sidebar">
+        <div class="brand">
+            <h:panelGroup rendered="#{authenticationService.isAlunoLogado()}">
+                <div class="brand-icon">
+                    #{authenticationService.getAlunoLogado().nome.substring(0,1).toUpperCase()}
+                </div>
+
+                <div class="brand-name">
+                    #{authenticationService.getAlunoLogado().nome}
+                </div>
+
+            </h:panelGroup>
+        </div>
+
+        <nav>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="/index.xhtml" class="nav-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                        </svg>
+                        Início
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/cursos.xhtml" class="nav-link active">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 2v20M2 12h20"></path>
+                        </svg>
+                        Cursos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/termos.xhtml" class="nav-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                        </svg>
+                        Termos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/faq.xhtml" class="nav-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path
+                                d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                            </path>
+                        </svg>
+                        Faq
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="studio.xhtml" class="nav-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 2L2 7v2h20V7L12 2z"></path>
+                            <path d="M4 9v11h16V9"></path>
+                            <path d="M10 22v-6h4v6"></path>
+                        </svg>
+                        Studio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="auth.xhtml" class="nav-link">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="6" r="4"></circle>
+                            <path d="M5 22v-5a7 7 0 0 1 14 0v5"></path>
+                        </svg>
+                        Administração
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <div class="support-card">
+            <h3 class="support-title">Suporte 24/7</h3>
+            <p class="support-subtitle">Nos contate em qualquer momento!</p>
+            <img src="./resources/ifba/images/sup.png" alt="Support illustration" class="support-image" />
+            <a href="https://wa.me/5577999646021?text=Socorro!%20Preciso%20de%20ajuda%20com%20o%20site!!"
+                target="_blank">
+                <button class="start-button">Socorro!!</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="mobile-navbar">
+        <a href="/index.xhtml">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="currentColor" />
+            </svg>
+            Início
+        </a>
+        <a href="/cursos.xhtml">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M12 2v20M2 12h20" stroke="currentColor" />
+            </svg>
+            Cursos
+        </a>
+        <a href="/termos.xhtml">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="currentColor" />
+            </svg>
+            Termos
+        </a>
+        <a href="/faq.xhtml">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <circle cx="12" cy="12" r="3" stroke="currentColor" />
+                <path
+                    d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33A1.65 1.65 0 0 0 14 21v.09a2 2 0 0 1-4 0V21a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9c0 .66.39 1.25 1 1.51h.09a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+                    stroke="currentColor" />
+            </svg>
+            FAQ
+        </a>
+        <a href="#">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <path d="M12 2L2 7v2h20V7L12 2z" stroke="currentColor" />
+                <path d="M4 9v11h16V9" stroke="currentColor" />
+                <path d="M10 22v-6h4v6" stroke="currentColor" />
+            </svg>
+            Studio
+        </a>
+        <a href="#">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke-width="2">
+                <circle cx="12" cy="6" r="4" stroke="currentColor" />
+                <path d="M5 22v-5a7 7 0 0 1 14 0v5" stroke="currentColor" />
+            </svg>
+            Admin
+        </a>
+        <div class="profile">
+            <div class="brand-icon">I</div>
+            <span>TESTE</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="top-header">
+            <div class="top-left">
+                <div class="search-container">
+                    <input type="text" id="search-input" class="search-input" placeholder="Pesquisar..." />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="search-icon" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm6.293-5.707l3.714 3.713a1 1 0 11-1.414 1.414l-3.714-3.713a6 6 0 111.414-1.414z" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="top-right">
+                <div class="icon-container">
+                    <h:panelGroup rendered="#{authenticationService.alunoLogado != null}">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="user-icone" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zM12 14c-3.87 0-7 3.13-7 7h14c0-3.87-3.13-7-7-7z" />
+                        </svg>
+
+                        <div class="notification-box">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="notification-icon" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 22c1.104 0 2-.896 2-2H10c0 1.104.896 2 2 2zm6-6V9c0-3.314-2.686-6-6-6s-6 2.686-6 6v7H6v2h12v-2h-2z" />
+                            </svg>
+                        </div>
+                    </h:panelGroup>
+
+                    <h:panelGroup rendered="#{authenticationService.alunoLogado == null}">
+                        <h:link outcome="login">
+                            <button class="follow-btn">Entrar</button>
+                        </h:link>
+                    </h:panelGroup>
+                </div>
+            </div>
+        </div>
+
+        <div class="conteudo">
+            <div class="cards-section">
+                <h2>Cursos da Newbyte</h2>
+                <div class="cards-navigation">
+                    <button id="prev" class="nav-btn" disabled="true">◄</button>
+                    <button id="next" class="nav-btn">►</button>
+                </div>
+                <div id="course-container" class="cards-row">
+                    <ui:repeat value="#{cursoBean.todosCursos}" var="curso">
+                        <div class="card-container">
+                            <h:link outcome="curso-detalhes">
+                                <f:param name="id" value="#{curso.idCurso}" />
+                                <div class="card-background" style="background-image: url('#{curso.imagem}')"></div>
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <div class="user-info">
+                                            <div class="course-icon">📚</div>
+                                            <div class="course-details">
+                                                <span class="username">#{curso.titulo}</span>
+                                                <span class="user-handle">@#{curso.titulo.toLowerCase().replace(' ',
+                                                    '-')}</span>
+                                            </div>
+                                        </div>
+                                        <h:form>
+                                            <h:commandButton value="Vamos!" styleClass="follow-btn"
+                                                action="#{cursoBean.inscrever(curso.idCurso)}">
+                                            </h:commandButton>
+                                        </h:form>
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <p>#{curso.conteudo}</p>
+
+                                    </div>
+                                </div>
+                            </h:link>
+                        </div>
+                    </ui:repeat>
+                </div>
+            </div>
+
+            <h:panelGroup rendered="#{authenticationService.alunoLogado != null}">
+                <div class="progress-courses-section">
+                    <h2 class="progress-title">Cursos em Andamento</h2>
+
+                    <div class="progress-courses-grid">
+                        <ui:repeat value="#{cursoBean.cursosEmProgresso}" var="prog">
+                            <div class="phone-card">
+                                <a href="new_design_watch.xhtml?curso=#{prog.curso.idCurso}" class="phone-link">
+                                    <div class="phone-screen">
+                                        <img src="#{prog.curso.imagem}" alt="#{prog.curso.titulo}"
+                                            class="phone-image" />
+                                        <div class="phone-overlay"></div>
+
+                                        <div class="phone-content">
+                                            <h3 class="phone-course-title">#{prog.curso.titulo}</h3>
+
+                                            <div class="phone-progress-container">
+                                                <div class="phone-progress-bar"
+                                                    h:style="'width: ' + prog.progresso + '%'"></div>
+                                            </div>
+
+                                            <span class="phone-progress-text">#{prog.progresso}% concluído</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </ui:repeat>
+
+                        <h:panelGroup rendered="#{empty cursoBean.cursosEmProgresso}">
+                            <div class="no-courses">
+                                Você ainda não iniciou nenhum curso.<br />
+                                <a href="/login.xhtml" class="no-courses-link">Comece agora!</a>
+                            </div>
+                        </h:panelGroup>
+                    </div>
+                </div>
+            </h:panelGroup>
+        </div>
+    </div>
+
+
+</h:body>
+
+</html>

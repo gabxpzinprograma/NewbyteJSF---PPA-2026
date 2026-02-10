@@ -1,0 +1,336 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Oriya:wght@400..700&display=swap');
+
+* {
+    font-family: "Montserrat Alternates", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #7a4af4;
+    --secondary-color: #6a3ecf;
+    --accent-color: #956afa;
+    --dark-bg: #212121;
+    --light-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #555555;
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 41px;
+    --border-radius-xl: 50px;
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.2);
+    --primary-light: #9a6af8;
+    --text-muted: #94a3b8;
+}
+
+::marker {
+    color: #00000000;
+}
+
+body {
+    background: #000;
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+}
+
+.container {
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 870px;
+    padding: 32px;
+    border-radius: 16px;
+    border: solid 5px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(25px);
+    box-shadow: 0px 0px 30px 20px rgba(0, 0, 0, 0.1);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+
+    /* Your heart is pounding and it can't be stopped
+    You tell yourself you're okay
+    It's too bad your doors can't be locked
+    To keep the monsters away
+    
+    You check behind the door
+    There's nothing there, no more
+    You should've stayed in bed
+    You've heard this noise before
+    You dart across the floor
+    Try not to lose your head
+    
+    Prepare for the horrors
+    This night will keep repeating over and over
+    And over, until you make it to the end
+    They hide 'round the corners
+    You better peel your eyes and keep looking over
+    Your shoulder, 'cause you'll never be alone again
+    
+    First there was one, but now there might be three
+    You turn around just in time
+    You hear a chuckle and you turn back and see
+    The closet door's open wide
+    
+    You look around the space
+    And see a creepy face
+    Turns out it's just your toy
+    But it seems out of place
+    You leave it, just in case
+    It might be a decoy
+    
+    Prepare for the horrors
+    This night will keep repeating over and over
+    And over, until you make it to the end
+    They hide 'round the corners
+    You better peel your eyes and keep looking over
+    Your shoulder, 'cause you'll never be alone again
+    
+    Prepare for the horrors
+    This night will keep repeating over and over
+    And over, until you make it to the end
+    They hide 'round the corners
+    You better peel your eyes and keep looking over
+    Your shoulder, 'cause you'll never be alone
+    
+    Prepare for the horrors
+    This night will keep repeating over and over
+    And over, until you make it to the end
+    They hide 'round the corners
+    You better peel your eyes and keep looking over
+    Your shoulder, 'cause you'll never be alone again
+    
+    You'll never be alone again
+    You'll never be alone*/
+    max-height: 788px;
+}
+
+.login-title {
+    margin-bottom: 24px;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+.input-box {
+    display: flex;
+    width: 100%;
+    position: relative;
+    margin-top: 12px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 12px 16px 12px 48px;
+    border-radius: 99px;
+    border: solid 3px transparent;
+    background: rgba(255, 255, 255, 0.1);
+    outline: none;
+    caret-color: white;
+    color: white;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: 0.25s;
+}
+
+.input-box input:focus {
+    border: solid 3px rgba(255, 255, 255, 0.1);
+}
+
+.input-box input::placeholder {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.input-box input::-ms-reveal {
+    filter: invert(100%);
+}
+
+.input-box i {
+    position: absolute;
+    top: 50%;
+    left: 16px;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 18px;
+    transition: 0.25s;
+}
+
+.input-box input:focus+i {
+    color: white;
+}
+
+.remember-forgot-box {
+    display: flex;
+    width: 100%;
+    margin-top: 12px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.remember-me input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #32CDD5;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    position: relative;
+    transition: 0.2s;
+}
+
+.remember-me input:checked {
+    background-color: #32CDD5;
+    border: 2px solid #32CDD5;
+}
+
+.remember-me input:checked::after {
+    content: "";
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    box-sizing: border-box;
+}
+
+.remember-me input:focus {
+    outline: 2px solid #32CDD58A;
+    outline-offset: 2px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.forgot-password {
+    text-decoration: none;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.75);
+    transition: 0.3s;
+}
+
+.forgot-password:hover {
+    color: #32CDD5;
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 16px;
+    padding: 12px 0;
+    background: #32CDD5;
+    border: none;
+    border-radius: 99px;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.1s;
+    outline: transparent 3px solid;
+}
+
+.login-button:focus {
+    outline: #32CDD58A 3px solid;
+}
+
+.dont-have-an-account {
+    font-weight: normal;
+    margin-top: 16px;
+    font-size: 14px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.dont-have-an-account a {
+    text-decoration: none;
+    color: #32CDD5;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.dont-have-an-account a:hover {
+    text-decoration: underline;
+}
+
+
+.nav__uls {
+    position: fixed;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: var(--border-radius-lg);
+    padding: 20px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.nav__uls .nav__lis {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: var(--border-radius-md);
+    transition: all var(--transition-normal);
+    cursor: pointer;
+}
+
+.nav__uls .nav__lis:hover {
+    background: rgba(122, 74, 244, 0.2);
+    transform: translateX(5px);
+}
+
+.nav__uls .nav__lis img {
+    width: 24px;
+    height: 24px;
+    transition: all var(--transition-normal);
+    filter: brightness(0.8);
+}
+
+.nav__uls .nav__lis:hover img {
+    filter: brightness(1.2);
+    transform: scale(1.1);
+}
+
+.professor-badge {
+    background: linear-gradient(45deg, #8a2be2, #ff1493);
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    background: rgba(138, 43, 226, 0.2);
+    padding: 15px;
+    border-radius: 12px;
+    border-left: 5px solid #8a2be2;
+    margin: 20px 0;
+    color: #ddd;
+}

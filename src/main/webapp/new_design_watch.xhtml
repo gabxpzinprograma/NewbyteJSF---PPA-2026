@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      lang="pt-BR">
+
+<h:head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Assistir - #{watchCursoBean.curso != null ? watchCursoBean.curso.titulo : 'Curso'}</title>
+    
+    <h:outputScript library="javax.faces" name="jsf.js" target="head"/>
+
+    <!-- CSS completo baseado no fornecido – apenas aparência, sem tocar no JS ou player -->
+    <style>
+        :root {
+            --primary-color: #503DA2;
+            --primary-light: #6a52d1;
+            --primary-dark: #3d3080;
+            --accent-color: #ff7000;
+            --accent-hover: #e56500;
+            --text-light: #ffffff;
+            --text-dark: #333333;
+            --text-muted: #a3a3a3;
+            --bg-light: #ffffff;
+            --bg-muted: #f2f2f2;
+            --border-radius-sm: 8px;
+            --border-radius-md: 16px;
+            --border-radius-lg: 45px;
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 6px 12px rgba(0, 0, 0, 0.15);
+            --shadow-glow: 0 0 20px rgba(80, 61, 162, 0.3);
+            --gradient-primary: linear-gradient(135deg, #503DA2 0%, #6a52d1 100%);
+            --gradient-secondary: linear-gradient(135deg, #ff7000 0%, #ff5722 100%);
+            --gradient-surface: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #4f3e9d 0%, #503DA2 50%, #6a52d1 100%);
+            background-attachment: fixed;
+            margin: 0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 1.9rem;
+            left: 4rem;
+            bottom: 4rem;
+            width: 4rem;
+            background: rgba(79, 62, 157, 0.1);
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 1.5rem;
+            gap: 7rem;
+            z-index: 9999;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sidebar-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 20%;
+            background: var(--gradient-primary);
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar-link {
+            color: rgba(255, 255, 255, 0.7);
+            transition: all var(--transition-normal);
+            padding: 0.5rem;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .sidebar-link:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.1);
+        }
+
+        .sidebar-icon {
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+
+        /* Container principal */
+        .container {
+            background: var(--gradient-surface);
+            border-radius: 53px;
+            padding: 38px;
+            box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.1), 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 1182px;
+            margin: 40px auto;
+            margin-left: 120px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .content {
+            display: grid;
+            gap: 2rem;
+            height: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .content {
+                grid-template-columns: 68fr 46fr;
+            }
+        }
+
+        .video-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .video-container {
+            position: relative;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        #videoPlayer {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .lesson-info {
+            padding: 20px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .lesson-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .user-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid var(--primary-color);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .lesson-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .lesson-description {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        .progress-container {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .progress-container progress {
+            width: 90%;
+            height: 16px;
+            border-radius: 8px;
+        }
+
+        .progress-container progress::-webkit-progress-value {
+            background: var(--gradient-primary);
+        }
+
+        .progress-container progress::-moz-progress-bar {
+            background: var(--gradient-primary);
+        }
+
+        .progress-container span {
+            display: block;
+            margin-top: 12px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .lessons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .lessons-header {
+            font-weight: 600;
+            font-size: 1.6rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+        }
+
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 16px;
+            border-radius: 12px;
+            background: #f8f5ff;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+
+        .lesson-item:hover {
+            background: #e9e0ff;
+            transform: translateX(8px);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .lesson-item.active {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .lesson-item.active .lesson-name {
+            color: white;
+        }
+
+        .lesson-icon {
+            width: 40px;
+            height: 40px;
+            background: #e9e0ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .lesson-item.active .lesson-icon {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .lesson-content {
+            flex: 1;
+        }
+
+        .lesson-name {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                margin-left: 100px;
+                margin-right: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                left: 1rem;
+                width: 3.5rem;
+                gap: 4rem;
+            }
+
+            .container {
+                margin-left: 20px;
+                margin-right: 20px;
+                padding: 20px;
+                border-radius: 30px;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+            .lessons-list {
+                order: -1;
+            }
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h:messages globalOnly="true" showDetail="true" showSummary="true" style="color: red; font-weight: bold;"/>
+
+    <!-- Sidebar fixa -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            #{authService.alunoLogado != null ? authService.alunoLogado.nome.charAt(0).toUpperCase() : 'A'}
+        </div>
+        <nav class="sidebar-nav">
+            <a href="/index.xhtml" class="sidebar-link">
+                <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            </a>
+            <a href="/cursos.xhtml" class="sidebar-link">
+                <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+            </a>
+            <a href="/contato.xhtml" class="sidebar-link">
+                <svg class="sidebar-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </a>
+        </nav>
+    </div>
+
+    <h:form id="watchForm">
+
+        <!-- Botão escondido AJAX -->
+        <h:commandButton id="updateProgressBtn" 
+                         action="#{watchCursoBean.atualizarProgressoFromJS}" 
+                         style="display:none;"> 
+            <f:ajax execute="@this" render="progressContainer"/>
+        </h:commandButton>
+
+        <h:panelGroup rendered="#{watchCursoBean.curso != null}">
+            <div class="container">
+                <div class="content">
+                    <div class="video-section">
+                        <div class="video-container">
+                            <video id="videoPlayer" controls="controls">
+                                <source src="#{watchCursoBean.videoUrlAtual}" type="video/mp4"/>
+                                Seu navegador não suporta o elemento de vídeo.
+                            </video>
+                        </div>
+
+                        <div class="lesson-info">
+                            <div class="lesson-header">
+                                <div class="user-avatar">
+                                    <img src="#{watchCursoBean.curso.imagem}" alt="Curso"/>
+                                </div>
+                                <h2 class="lesson-title">#{watchCursoBean.tituloAulaAtual}</h2>
+                            </div>
+                            <p class="lesson-description">#{watchCursoBean.curso.conteudo}</p>
+                        </div>
+
+                        <h:panelGroup id="progressContainer" layout="block" class="progress-container">
+                            <progress value="#{watchCursoBean.progresso}" max="100"></progress>
+                            <span>#{watchCursoBean.progresso}% concluído</span>
+                        </h:panelGroup>
+                    </div>
+
+                    <div class="lessons-list">
+                        <h3 class="lessons-header">Aulas</h3>
+                        <ui:repeat value="#{watchCursoBean.aulas}" var="aula" varStatus="status">
+                            <div class="lesson-item #{watchCursoBean.aulaAtual ne null and aula.idAula eq watchCursoBean.aulaAtual.idAula ? 'active' : ''}">
+                                <a href="javascript:void(0);" 
+                                   class="lesson-content"
+                                   data-index="#{status.index}"
+                                   data-video="#{aula.video}"
+                                   data-titulo="#{aula.titulo}">
+                                    <div class="lesson-icon">#{status.index + 1}</div>
+                                    <div class="lesson-name">#{aula.titulo}</div>
+                                </a>
+                            </div>
+                        </ui:repeat>
+                    </div>
+                </div>
+            </div>
+        </h:panelGroup>
+
+        <h:panelGroup rendered="#{watchCursoBean.curso == null}">
+            <h2 style="text-align:center;color:white;margin-top:100px;">Curso não carregado</h2>
+        </h:panelGroup>
+
+    </h:form>
+
+    <!-- JS mantido 100% intacto – apenas classes ajustadas para combinar com o CSS -->
+    <h:outputScript target="body">
+        const videoPlayer = document.getElementById('videoPlayer');
+        const videoTitle = document.querySelector('.lesson-title');
+        const totalAulas = #{watchCursoBean.aulas != null ? watchCursoBean.aulas.size() : 0};
+        let progressoAtual = #{watchCursoBean.progresso};
+        let currentIndex = #{watchCursoBean.currentAulaIndex};
+        let concluidaAtual = false;
+
+        // Troca de aula
+        document.querySelectorAll('.lesson-item a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const index = parseInt(this.dataset.index);
+                const videoUrl = this.dataset.video;
+                const titulo = this.dataset.titulo;
+
+                videoPlayer.src = videoUrl;
+                videoPlayer.load();
+
+                if (videoTitle) videoTitle.textContent = titulo;
+
+                currentIndex = index;
+                concluidaAtual = false;
+
+                document.querySelectorAll('.lesson-item').forEach(item => item.classList.remove('active'));
+                this.closest('.lesson-item').classList.add('active');
+
+                console.log('Trocou para aula index:', index, 'URL:', videoUrl, 'Título:', titulo);
+            });
+        });
+
+        function handleAulaConcluida() {
+            if (concluidaAtual || totalAulas === 0) {
+                console.log('Aula já concluída ou sem aulas - ignorando.');
+                return;
+            }
+
+            console.log('Aula concluída! Calculando novo progresso...');
+            concluidaAtual = true;
+
+            const novoProgressoCalc = Math.round(((currentIndex + 1) / totalAulas) * 100);
+
+            console.log('Novo progresso calculado:', novoProgressoCalc, '% (baseado em', (currentIndex + 1), 'de', totalAulas, 'aulas)');
+
+            if (novoProgressoCalc > progressoAtual) {
+                console.log('Atualizando progresso no servidor (de', progressoAtual, '% para', novoProgressoCalc, '%)');
+                progressoAtual = novoProgressoCalc;
+
+                jsf.ajax.request('watchForm:updateProgressBtn', null, {
+                    execute: 'watchForm:updateProgressBtn',
+                    render: 'watchForm:progressContainer',
+                    'javax.faces.behavior.event': 'action',
+                    'novoProgresso': novoProgressoCalc
+                });
+            } else {
+                console.log('Novo progresso não é maior que o atual - não atualizando.');
+            }
+        }
+
+        videoPlayer.addEventListener('ended', () => {
+            console.log('Evento "ended" disparado.');
+            handleAulaConcluida();
+        });
+
+        videoPlayer.addEventListener('timeupdate', () => {
+            if (videoPlayer.duration &amp;&amp; !isNaN(videoPlayer.duration) &amp;&amp; videoPlayer.duration > 0) {
+                const percentage = (videoPlayer.currentTime / videoPlayer.duration) * 100;
+                console.log('Timeupdate: Porcentagem:', percentage.toFixed(2) + '%');
+
+                if (!concluidaAtual &amp;&amp; percentage >= 95) {
+                    console.log('Atingiu 95% - marcando como concluída.');
+                    handleAulaConcluida();
+                }
+            }
+        });
+    </h:outputScript>
+</h:body>
+</html>

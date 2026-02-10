@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Painel Admin - Newbyte</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <f:event type="preRenderView" listener="#{adminBean.checkLogin}" />
+    <h:outputStylesheet library="ifba" name="styles/adm.css" />
+    <link rel="shortcut icon" href="./resources/ifba/images/logo-removebg-preview.png" type="image/x-icon" />
+</h:head>
+<h:body>
+    <h:commandButton value="Logout" action="#{adminLoginBean.logout}" styleClass="logout-btn" />
+
+    <div class="header">
+        <h1>Administração de Cursos</h1>
+    </div>
+
+    <div class="grid">
+        <div class="card">
+            <h3>Adicionar Novo Curso</h3>
+            <h:form enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <h:inputText id="titulo" value="#{adminBean.titulo}" required="true" />
+                </div>
+                <div class="form-group">
+                    <label for="conteudo">Conteúdo</label>
+                    <h:inputTextarea id="conteudo" value="#{adminBean.conteudo}" required="true" />
+                </div>
+                <div class="form-group">
+                    <label for="imagem">Imagem</label>
+                    <h:inputFile id="imagem" value="#{adminBean.imagem}" required="true" accept="image/*" />
+
+                </div>
+                <h:commandButton value="Adicionar Curso" action="#{adminBean.adicionarCurso}"
+                    styleClass="btn btn-success" />
+                <h:messages globalOnly="true" styleClass="messages messages-info" infoClass="messages messages-info"
+                    errorClass="messages messages-error" />
+            </h:form>
+        </div>
+
+        <div class="card">
+            <h3>Remover Curso</h3>
+            <h:form>
+                <div class="form-group">
+                    <label for="idCurso">Selecione o curso</label>
+                    <h:selectOneMenu id="idCurso" value="#{adminBean.idCursoRemover}">
+                        <f:selectItem itemLabel="Selecione..." itemValue="" />
+                        <f:selectItems value="#{adminBean.cursos}" var="c" itemLabel="#{c.titulo} (ID: #{c.idCurso})"
+                            itemValue="#{c.idCurso}" />
+                    </h:selectOneMenu>
+                </div>
+                <h:commandButton value="Remover Curso" action="#{adminBean.removerCurso}" styleClass="btn btn-danger" />
+                <h:messages globalOnly="true" styleClass="messages" />
+            </h:form>
+        </div>
+    </div>
+
+    <h:dataTable value="#{adminBean.cursos}" var="curso" styleClass="table">
+        <h:column>
+            <f:facet name="header">ID</f:facet>
+            #{curso.idCurso}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Título</f:facet>
+            #{curso.titulo}
+        </h:column>
+        <h:column>
+            <f:facet name="header">Imagem</f:facet>
+            <h:graphicImage url="#{curso.imagem}" width="120" />
+        </h:column>
+    </h:dataTable>
+</h:body>
+
+</html>

@@ -1,0 +1,257 @@
+::marker {
+    color: #00000000;
+}
+
+:root {
+    --bg: #0f0f0f;
+    --card: #1a1a1a;
+    --primary: #6366f1;
+    --primary-hover: #4f46e5;
+    --danger: #ef4444;
+    --danger-hover: #dc2626;
+    --success: #22c55e;
+    --text: #e5e7eb;
+    --text-light: #9ca3af;
+    --border: #374151;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    padding: 2rem;
+}
+
+.header {
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+}
+
+.logout-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 84px;
+}
+
+.logout-btn:hover {
+    background: var(--danger-hover);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.card {
+    background: var(--card);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border);
+}
+
+.card h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    color: #cc8bff;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+input,
+textarea,
+selec {
+    width: 100%;
+    padding: 0.875rem;
+    background: #2d2d2d;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    color: var(--text);
+    transition: all 0.2s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.btn {
+    padding: 0.875rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+
+.btn-success {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-success:hover {
+    background: var(--primary-hover);
+}
+
+.btn-danger {
+    background: var(--danger);
+    color: white;
+}
+
+.btn-danger:hover {
+    background: var(--danger-hover);
+}
+
+.messages {
+    margin: 1rem 0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+}
+
+.messages-info {
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid var(--success);
+    color: #86efac;
+}
+
+.messages-error {
+    background: rgba(239, 68, 68, 0.15);
+    border: 1px solid var(--danger);
+    color: #fca5a5;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 3rem;
+    background: var(--card);
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background: #2d2d2d;
+    color: #fbbf24;
+}
+
+img {
+    max-height: 80px;
+    border-radius: 0.5rem;
+}
+
+
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background: #2d2d2d;
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    padding: 0.875rem 1rem;
+    padding-right: 3rem;
+
+    color: var(--text);
+    font-size: 0.95rem;
+    cursor: pointer;
+
+    background-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='%23fbbf24' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.2rem;
+
+    transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+select:hover {
+    border-color: var(--primary);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
+    background-color: #303030;
+}
+
+select option {
+    background: #1f1f1f;
+    color: var(--text);
+}
+
+
+input[type="file"] {
+    padding: 0.75rem;
+    background: #1f1f1f;
+    border: 1px dashed var(--border);
+    border-radius: 0.6rem;
+    color: var(--text-light);
+    cursor: pointer;
+    transition: border 0.2s, background 0.2s;
+}
+
+input[type="file"]:hover {
+    border-color: var(--primary);
+    background: #262626;
+}
+
+input[type="file"]:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.35);
+}
+
+input[type="file"]::file-selector-button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.6rem 1rem;
+    border-radius: 0.4rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: var(--primary-hover);
+}

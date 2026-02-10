@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <title>Newbyte - Cadastro</title>
+    <h:messages styleClass="message" layout="div" showDetail="false" />
+    <h:outputStylesheet library="ifba" name="styles/cadastro.css" />
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="./resources/ifba/images/logo-removebg-preview.png" type="image/x-icon" />
+</h:head>
+<h:body>
+
+    <ul class="nav__uls">
+        <a href="index.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/home.png" /></li>
+        </a>
+        <a href="cursos.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/box.png" /></li>
+        </a>
+        <a href="termos.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/file.png" /></li>
+        </a>
+        <a href="contato.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/phone.png" /></li>
+        </a>
+        <a href="login.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/user.png" /></li>
+        </a>
+        <a href="faq.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/question.png" />
+            </li>
+        </a>
+    </ul>
+
+    <h:form class="container">
+        <h1 class="login-title">Cadastre-se</h1>
+
+        <h:messages styleClass="message" showDetail="false" layout="div" />
+
+        <section class="input-box">
+            <h:inputText value="#{cadastroBean.nome}" placeholder="Usuário" required="true" requiredMessage="Digite seu nome" />
+            <i class='bx bxs-user'></i>
+        </section>
+
+        <section class="input-box">
+            <h:inputText value="#{cadastroBean.email}" placeholder="E-mail" required="true" type="email"
+                requiredMessage="Digite um e-mail válido" />
+            <i class='bx bxs-envelope'></i>
+        </section>
+
+        <section class="input-box">
+            <h:inputSecret value="#{cadastroBean.senha}" placeholder="Senha" required="true"
+                requiredMessage="Digite uma senha" />
+            <i class='bx bxs-lock-alt'></i>
+        </section>
+
+        <section class="input-box">
+            <h:inputSecret value="#{cadastroBean.confirmarSenha}" placeholder="Confirme a Senha" required="true"
+                requiredMessage="Confirme sua senha" />
+            <i class='bx bxs-lock'></i>
+        </section>
+
+        <section class="remember-forgot-box">
+            <div class="remember-me">
+                <h:selectBooleanCheckbox value="#{cadastroBean.aceitoTermos}" required="true"
+                    requiredMessage="Você precisa aceitar os Termos de Uso" />
+                <label>Eu aceito os <a href="termos.html">Termos de Uso</a></label>
+            </div>
+        </section>
+
+        <h:commandButton value="Cadastre-se" action="#{cadastroBean.cadastrar}" class="login-button" />
+
+        <h5 class="dont-have-an-account" style="margin-top: 30px;">
+            Você é professor?
+            <h:link outcome="professor-cadastro" style="color: #8a2be2; font-weight: bold;">
+                Cadastre-se como professor
+            </h:link>
+        </h5>
+        <h5 class="dont-have-an-account">
+            Já tem uma conta?
+            <h:link outcome="cadastro" style="color: #53ff4d; font-weight: bold">
+                Faça login como aluno
+            </h:link>
+        </h5>
+    </h:form>
+
+</h:body>
+
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+    <title>NewByte - Cadastro Professor</title>
+    <link rel="stylesheet" href="resources/ifba/styles/cadastro.css" />
+    <link rel="shortcut icon" href="resources/ifba/images/logo-removebg-preview.png" type="image/x-icon" />
+</h:head>
+
+<h:body>
+    <ul class="nav__uls">
+        <a href="/index.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/home.png" /></li>
+        </a>
+        <a href="/cursos.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/box.png" /></li>
+        </a>
+        <a href="/termos.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/file.png" /></li>
+        </a>
+        <a href="/contato.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/phone.png" /></li>
+        </a>
+        <a href="/login.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/user.png" /></li>
+        </a>
+        <a href="/faq.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/question.png" /></li>
+        </a>
+    </ul>
+
+    <h:form class="container">
+        <div class="professor-badge">Área Exclusiva para Professores</div>
+        <h1 class="login-title">Cadastro de Professor</h1>
+
+        <h:messages styleClass="message" />
+
+        <div class="info-box">
+            <strong>Importante:</strong> Após o cadastro, você será redirecionado para fazer login.
+            Sua conta será analisada pela equipe NewByte e ativada em até 48h.
+        </div>
+
+        <section class="input-box">
+            <h:inputText value="#{professorCadastroBean.nome}" placeholder="Nome completo" required="true" />
+            <i class='bx bxs-user'></i>
+        </section>
+
+        <section class="input-box">
+            <h:inputText value="#{professorCadastroBean.email}" placeholder="E-mail profissional" type="email"
+                required="true" />
+            <i class='bx bxs-envelope'></i>
+        </section>
+
+        <section class="input-box">
+            <h:inputSecret value="#{professorCadastroBean.senha}" placeholder="Senha" required="true" />
+            <i class='bx bxs-lock-alt'></i>
+        </section>
+
+        <section class="input-box">
+            <h:inputSecret value="#{professorCadastroBean.confirmarSenha}" placeholder="Confirmar senha"
+                required="true" />
+            <i class='bx bxs-lock'></i>
+        </section>
+
+        <section class="remember-forgot-box">
+            <div class="remember-me">
+                <h:selectBooleanCheckbox value="#{professorCadastroBean.aceitoTermos}" required="true" />
+                <label>Eu aceito os <a href="termos.xhtml">Termos de Uso</a> e sou professor</label>
+            </div>
+        </section>
+
+        <h:commandButton value="Cadastrar como Professor" action="#{professorCadastroBean.cadastrar}"
+            class="login-button" />
+
+        <h5 class="dont-have-an-account" style="margin-top: 20px;">
+            Já tem conta? <h:link outcome="professor-login">Fazer login como professor</h:link>
+        </h5>
+        <h5 class="dont-have-an-account" style="margin-top: 15px; text-align: center;">
+            É aluno?
+            <h:link outcome="cadastro.xhtml" style="color: #ff6b6b; font-weight: bold; cursor: pointer;">
+                Cadastro de aluno
+            </h:link>
+        </h5>
+    </h:form>
+</h:body>
+
+</html>

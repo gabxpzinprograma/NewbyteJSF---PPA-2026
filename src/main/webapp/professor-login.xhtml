@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+    <title>NewByte - Login Professor</title>
+    <link rel="stylesheet" href="resources/ifba/styles/cadastro.css" />
+    <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="./resources/ifba/images/logo-removebg-preview.png" type="image/x-icon" />
+</h:head>
+
+<h:body>
+    <ul class="nav__uls">
+        <a href="/index.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/home.png" /></li>
+        </a>
+        <a href="/cursos.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/box.png" /></li>
+        </a>
+        <a href="/termos.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/file.png" /></li>
+        </a>
+        <a href="/contato.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/phone.png" /></li>
+        </a>
+        <a href="/login.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/user.png" /></li>
+        </a>
+        <a href="/faq.xhtml">
+            <li class="nav__lis"><img src="./resources/ifba/images/question.png" /></li>
+        </a>
+    </ul>
+
+    <h:form class="container">
+        <h1 class="login-title">Login Professor</h1>
+        <h:messages styleClass="message" />
+
+        <section class="input-box">
+            <h:inputText value="#{professorLoginBean.email}" placeholder="E-mail" required="true" />
+            <i class='bx bxs-envelope'></i>
+        </section>
+
+        <section class="input-box">
+            <h:inputSecret value="#{professorLoginBean.senha}" placeholder="Senha" required="true" />
+            <i class='bx bxs-lock-alt'></i>
+        </section>
+
+        <h:commandButton value="Entrar como Professor" action="#{professorLoginBean.logar}" class="login-button" />
+        <h5 class="dont-have-an-account" style="margin-top: 20px; text-align: center;">
+            Ainda não tem conta?
+            <h:link outcome="professor-cadastro" style="color: #8a2be2; font-weight: bold; cursor: pointer;">
+                Cadastre-se como professor
+            </h:link>
+        </h5>
+
+        <h5 class="dont-have-an-account" style="margin-top: 15px; text-align: center;">
+            É aluno?
+            <h:link outcome="login" style="color: #ff6b6b; font-weight: bold; cursor: pointer;">
+                Login de aluno
+            </h:link>
+        </h5>
+    </h:form>
+</h:body>
+
+</html>
